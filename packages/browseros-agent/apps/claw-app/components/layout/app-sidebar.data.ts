@@ -12,6 +12,7 @@ import {
   Plug,
   Settings,
 } from 'lucide-react'
+import { cockpitCopy } from '@/lib/copy'
 
 export interface NavItem {
   name: string
@@ -21,14 +22,14 @@ export interface NavItem {
 
 /** Daily destinations, in the order people use them. */
 export const primaryNavItems: NavItem[] = [
-  { name: 'Home', to: '/', icon: House },
-  { name: 'Skills', to: '/skills', icon: Bookmark },
-  { name: 'Connected agents', to: '/mcp', icon: Plug },
-  { name: 'History', to: '/audit', icon: History },
+  { name: cockpitCopy.navigation.home, to: '/', icon: House },
+  { name: cockpitCopy.navigation.skills, to: '/skills', icon: Bookmark },
+  { name: cockpitCopy.navigation.connectedAgents, to: '/mcp', icon: Plug },
+  { name: cockpitCopy.navigation.history, to: '/audit', icon: History },
 ]
 
 export const secondaryNavItems: NavItem[] = [
-  { name: 'Settings', to: '/settings', icon: Settings },
+  { name: cockpitCopy.navigation.settings, to: '/settings', icon: Settings },
 ]
 
 export function isNavItemActive(to: string, pathname: string): boolean {

@@ -19,6 +19,7 @@ import {
   AnimatedSidebarMenuItem,
 } from '@/components/motion/animated-sidebar'
 import { CARD_TARGET_CLASS, Card } from '@/components/motion/card'
+import { cockpitCopy } from '@/lib/copy'
 import { cn } from '@/lib/utils'
 import { useLiveSessions } from '@/modules/api/audit.hooks'
 import { useConnections } from '@/modules/api/connections.hooks'
@@ -91,7 +92,7 @@ function NavMenu({
 export function AppSidebar() {
   return (
     <AnimatedSidebar
-      ariaLabel="Sidebar"
+      ariaLabel={cockpitCopy.sidebar.label}
       collapsible="none"
       panelClassName="bg-sidebar"
     >
@@ -99,7 +100,7 @@ export function AppSidebar() {
         <SidebarBrand />
       </AnimatedSidebarHeader>
       <AnimatedSidebarContent className="px-3">
-        <nav aria-label="Main">
+        <nav aria-label={cockpitCopy.sidebar.mainNavigation}>
           <NavMenu
             items={primaryNavItems}
             badges={{ '/': <NeedsYouCount /> }}
@@ -107,7 +108,7 @@ export function AppSidebar() {
         </nav>
       </AnimatedSidebarContent>
       <AnimatedSidebarFooter className="gap-1 px-3">
-        <nav aria-label="Settings">
+        <nav aria-label={cockpitCopy.navigation.settings}>
           <NavMenu items={secondaryNavItems} />
         </nav>
         <ConnectedAgentsCard />
@@ -131,7 +132,7 @@ function NeedsYouCount() {
       status="warning"
       size="sm"
       showIcon={false}
-      aria-label={`${count} ${count === 1 ? 'agent needs' : 'agents need'} you`}
+      aria-label={cockpitCopy.sidebar.needsYou(count)}
     >
       {count}
     </AnimatedBadge>
@@ -147,10 +148,7 @@ function ConnectedAgentsCard() {
   const connected = connections.data.items
     .filter((c) => c.installed && isUserFacingHarness(c.harness))
     .map((c) => c.harness)
-  const label =
-    connected.length === 0
-      ? 'No agents connected yet'
-      : `${connected.length} ${connected.length === 1 ? 'agent' : 'agents'} connected`
+  const label = cockpitCopy.sidebar.connectedAgents(connected.length)
   return (
     <Card variant="muted" size="compact" interactive className="mt-2 px-3">
       <div className="flex items-center gap-2.5">
